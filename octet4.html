@@ -14,12 +14,92 @@
     <!-- Analytics here -->
 </head>
 
-<body>
+<body style="padding-top: 70px;">  <!-- for fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-content">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img class="navbar-text navbar-left" src="img/octet-logo.svg" width="16px">
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-content">
+                <h4 class="navbar-text navbar-left">Octet</h4>
+                <a class="navbar-brand navbar-right" href="#">Jiló</a>
+            </div>
+        </div>
+    </nav>
+
     <section class="container">
         <input type="text" class="form-control input-group" id="input-ip-addr" placeholder="Type the IP address and mask (optional) and hit <enter>">
+
+        <div class="table-responsive">
+        <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th class="text-nowrap"><span class="label label-primary">IP address</span></th>
+                <td><span id="octet-0">127.0.0.1</span></td>
+                <td><code id="octet-0-bin">00000000 00000000 00000000 00000000</code></td>
+            </tr>
+            <tr>
+                <th class="text-nowrap"><span class="label label-primary">Subnet mask</span></th>
+                <td><span id="octet-1">255.255.255.0</span></td>
+                <td><code id="octet-1-bin">11111111 11111111 11111111 00000000</code></td>
+            </tr>
+            <tr>
+                <th class="text-nowrap"><span class="label label-primary">Wildcard mask</span></th>
+                <td><span id="octet-2">255.255.255.0</span></td>
+                <td><code id="octet-2-bin">00000000 11111111 11111111 11111111</code></td>
+            </tr>
+            <tr>
+                <th class="text-nowrap"><span class="label label-primary">Network address</span></th>
+                <td><span id="octet-2">255.255.255.0</span></td>
+                <td><code id="octet-2-bin">00000000 11111111 11111111 11111111</code></td>
+            </tr>
+            <tr>
+                <th class="text-nowrap"><span class="label label-primary">Broadcast address</span></th>
+                <td><span id="octet-2">255.255.255.0</span></td>
+                <td><code id="octet-2-bin">00000000 11111111 11111111 11111111</code></td>
+            </tr>
+            <tr>
+                <th class="text-nowrap"><span class="label label-primary">First host address</span></th>
+                <td><span id="octet-2">255.255.255.0</span></td>
+                <td><code id="octet-2-bin">00000000 11111111 11111111 11111111</code></td>
+            </tr>
+            <tr>
+                <th class="text-nowrap"><span class="label label-primary">Last host address</span></th>
+                <td><span id="octet-2">255.255.255.0</span></td>
+                <td><code id="octet-2-bin">00000000 11111111 11111111 11111111</code></td>
+            </tr>
+            <tr>
+                <th class="text-nowrap"><span class="label label-primary">Number of hosts</span></th>
+                <td><span id="octet-2">255.255.255.0</span></td>
+                <td><code id="octet-2-bin">00000000 11111111 11111111 11111111</code></td>
+            </tr>
+        </tbody>
+        </table>
+        </div>
     </section>
 
+    <!--COMMENTS>
+    <section id="comments">
+    </section>
+    -->
+
+    <footer class="navbar navbar-default navbar-static-bottom">
+        <div class="container-fluid">
+            <p class="navbar-text">Proudly built with <a href="http://jquery.com" target="_blank">jQuery 2.1.1</a> and <a href="http://getbootstrap.com" target="_blank">Bootstrap 3.2.0</a>.  Fork me on <a href="https://github.com/forkd/octet" target="_blank">GitHub</a>.</p>
+            <a class="navbar-right navbar-text badge" href="http://jilo.cc">Jiló</a>
+        </div>
+    </footer>
+
     <!-- JavaScripts -->
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js">
     <script src="js/ipv4-calc.js"></script>
 </body>
 </html>

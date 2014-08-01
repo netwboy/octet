@@ -13,7 +13,7 @@
    height="512"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="octet-logo.svg"
    inkscape:export-filename="D:\Users\c056814\Downloads\octet-logo-16.png"
    inkscape:export-xdpi="2.8099999"
@@ -34,9 +34,9 @@
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1280"
-     inkscape:window-height="977"
-     inkscape:window-x="1276"
-     inkscape:window-y="-4"
+     inkscape:window-height="725"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -46,7 +46,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -56,7 +56,7 @@
      id="layer1"
      transform="translate(0,-540.36218)">
     <path
-       style="fill:#336699;fill-opacity:1;stroke:none"
+       style="fill:#eeeeee;fill-opacity:1;stroke:none"
        d="m 256,543.91717 c -139.40087,0 -252.273379,113.21573 -252.273379,252.61661 0,139.40087 112.872509,252.27342 252.273379,252.27342 139.40087,0 252.27338,-112.87255 252.27338,-252.27342 C 508.27338,657.1329 395.40087,543.91717 256,543.91717 z m -57.66249,18.8776 114.98175,0 c 7.83957,4.4e-4 14.41913,2.75001 19.90728,8.2375 5.48761,5.48837 8.23717,12.06782 8.2375,19.90728 l 0,166.46611 c 15.23147,2.2e-4 28.61443,5.26816 39.81458,16.13177 11.19948,10.86405 16.81789,24.25427 16.81822,40.1578 l 0,138.66455 c -3.3e-4,15.45585 -5.61874,28.72679 -16.81822,39.81458 -11.20015,11.08774 -24.58311,16.47504 -39.81458,16.47504 l -171.27131,0 c -15.90386,0 -29.41325,-5.8569 -40.50103,-17.50473 -11.0879,-11.64782 -16.47511,-24.68756 -16.475,-39.47135 l 0,-137.97809 c -1.1e-4,-15.45552 5.6183,-28.72657 16.81823,-39.81457 11.1997,-11.08757 24.47789,-16.47478 40.1578,-16.475 l 0,-166.46611 c -1.1e-4,-7.83946 2.86149,-14.41891 8.2375,-19.90728 5.37579,-5.48749 11.84321,-8.23706 19.90728,-8.2375 z m 28.48802,56.6328 0,137.97809 58.34894,0 0,-137.97809 -58.34894,0 z m -56.6328,194.26766 0,138.66455 171.27131,0 0,-138.66455 -171.27131,0 z"
        id="path2993"
        inkscape:connector-curvature="0" />

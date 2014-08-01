@@ -44,7 +44,7 @@ function ipv4_str2int(ip_str){
 }
 
 function ipv4_int2str(ip_int){
-    /* Convert an IPv4 address from an int array to its string notation. */
+    /* Convert an IPv4 address from an int number to its string notation. */
     
     var ip_arr = [],
         ip_str = '';
@@ -97,12 +97,12 @@ function auto_mask(ip_addr){
     }
 }
 
-function get_subnet(ip_addr, ip_mask){
+function get_network(ip_addr, ip_mask){
     return ip_addr & ip_mask;
 }
 
 function get_broadcast(ip_addr, ip_mask){
-    return get_subnet(ip_addr, ip_mask) | ~ip_mask;
+    return get_network(ip_addr, ip_mask) | ~ip_mask;
 }
 
 function get_wildcard(ip_mask){
@@ -114,7 +114,7 @@ function get_number_hosts(ip_mask){
 }
 
 function get_first_host(ip_addr, ip_mask){
-    return get_subnet(ip_addr, ip_mask) + 1
+    return get_network(ip_addr, ip_mask) + 1
 }
 
 function get_last_host(ip_addr, ip_mask){
@@ -153,10 +153,25 @@ function parser(text){
     return [ip_addr, ip_mask];
 }
 
+function dec2bin(n){
+    /* Convert an n decimal integer to binary.  Returns a string. */
+
+    var aux = 0
+        ret = '';
+
+    for (var i=0; i < 4; i++){
+        aux = (n & 255).toString(2);
+        
+        while (aux.length < 8){ aux = '0' + aux; }
+
+        ret = aux + ' ' + ret;
+        n = n >> 8;
+    }
+
+    return ret.slice(0, -1);
+}
+
 
 /**
  * CALLBACK FUNCTIONS
  */
-for (var i=0; i <= 32; i++){
-    console.log(i + '\t-\t'+ ipv4_int2str(fill_mask(i)));
-}
