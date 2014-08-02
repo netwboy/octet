@@ -97,6 +97,10 @@ function auto_mask(ip_addr){
     }
 }
 
+function get_wildcard(ip_mask){
+    return ~ip_mask;
+}
+
 function get_network(ip_addr, ip_mask){
     return ip_addr & ip_mask;
 }
@@ -105,20 +109,16 @@ function get_broadcast(ip_addr, ip_mask){
     return get_network(ip_addr, ip_mask) | ~ip_mask;
 }
 
-function get_wildcard(ip_mask){
-    return ~ip_mask;
+function get_first_host(ip_addr, ip_mask){
+    return get_network(ip_addr, ip_mask) + 1;
+}
+
+function get_last_host(ip_addr, ip_mask){
+    return get_broadcast(ip_mask, ip_mask) - 1;
 }
 
 function get_number_hosts(ip_mask){
     return (-1 ^ ip_mask) - 1;
-}
-
-function get_first_host(ip_addr, ip_mask){
-    return get_network(ip_addr, ip_mask) + 1
-}
-
-function get_last_host(ip_addr, ip_mask){
-    return get_broadcast(ip_mask, ip_mask) - 1
 }
 
 
@@ -135,7 +135,7 @@ function parser(text){
         ip_mask = -16777216;  // 255.0.0.0
 
     if (new RegExp(re_ip_addr).exec(entry[0])){
-        ip_addr = ipv4_str2int(entry[0]); console.log('entrou');
+        ip_addr = ipv4_str2int(entry[0]);
     }
 
     if (entry.length > 1){
@@ -150,7 +150,13 @@ function parser(text){
         ip_mask = auto_mask(ip_addr);
     }
 
-    return [ip_addr, ip_mask];
+    return [ip_addr, ip_mask,
+            get_wildcard(ip_mask),
+            get_network(ip_addr, ip_mask),
+            get_broadcast(ip_addr, ip_mask),
+            get_first_host(ip_addr, ip_mask),
+            get_last_host(ip_addr, ip_mask),
+            get_number_hosts(ip_mask)];
 }
 
 function dec2bin(n){
@@ -175,3 +181,24 @@ function dec2bin(n){
 /**
  * CALLBACK FUNCTIONS
  */
+function on_input_enter(e){
+    var p = [];
+
+    if (e.keyCode == 13){
+        p = parser($('#input-ipmask').val());
+
+        for (var i=0; i<7; i++){
+            $('#octet-' + i).text(ipv4_int2str(p[i]));
+        }
+        $('#octet-7').text(p[7]);
+
+        for (var i=0; i<7; i++){
+            $('#octet-' + i + '-bin').text(dec2bin(p[i]));
+        }
+        $('#octet-7-bin').text(p[7].toString(2));
+    }
+}
+
+$(document).ready(function(){
+    $('#input-ipmask').keypress(on_input_enter);
+});
