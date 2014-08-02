@@ -15,20 +15,27 @@ You can use one of these input formats:
 If you insert an unacceptable format or leave it in blank, the input element will go red and the default values will be considered --`127.0.0.1/8`.
 
 
+## Output
+
+Information about IP address and mask inserted will be displayed below input element.  For every aspect shown, you'll have the usual notation --dotted-decimal for IP addresses and decimal for usual integer values.
+
+If the given IP address is private, the labels will turn to red --by default they're blue.
+
+
 ## Application Programming Interface (API)
 
-Using the functions in `js/ipv4-calc.js` file, you're able to do things like:
+Using the functions in `js/ipv4-calc.js` file, you're able to do things like list masks...
 
 ```javascript
-for (var i=0; i <= 32; i++){
+for (var i = 0; i <= 32; i++){
     console.log(i + '\t-\t'+ ipv4_int2str(fill_mask(i)));
 }
 ```
 
-or
+...or show a range of IP addresses.
 
 ```javascript
-for (var i=0; i < 1024; i++){
+for (var i = 0; i < 1024; i++){
     console.log(i + '\t-\t' + dec2bin(i));
 }
 ```

@@ -24,11 +24,14 @@
 /**
  * CORE FUNCTIONS
  */
-function ipv4_str2int(ip_str){
-    /* Convert an IPv4 address from its string notation to an int number. */
+function ipv4_dot2int(ip_dot){
+    /** Convert ip_dot from its dotted-decimal notation to an int number.
+     * * ip_dot is a string, like '127.0.0.1'.
+     * Returns an int number.
+     */
 
     var ip_arr = [],
-        aux = ip_str.split('.'),
+        aux = ip_dot.split('.'),
         ip_int = 0;
 
     for (var i = 0; i < 4; i++){
@@ -43,11 +46,14 @@ function ipv4_str2int(ip_str){
     return ip_int;
 }
 
-function ipv4_int2str(ip_int){
-    /* Convert an IPv4 address from an int number to its string notation. */
+function ipv4_int2dot(ip_int){
+    /* Convert ip_int from an int number to its dotted-decimal notation.
+     * * ip_int is an integer number.
+     * Returns a string.
+     */
     
     var ip_arr = [],
-        ip_str = '';
+        ip_dot = '';
 
     for (var i = 0; i < 4; i++){
         ip_arr.push(ip_int & 255);
@@ -57,10 +63,10 @@ function ipv4_int2str(ip_int){
     ip_arr.reverse();
 
     for (var i = 0; i < 4; i++){
-        ip_str += ip_arr[i] + '.';
+        ip_dot += ip_arr[i] + '.';
     }
 
-    return ip_str.slice(0, -1);
+    return ip_dot.slice(0, -1);
 }
 
 function fill_mask(n){
@@ -95,6 +101,17 @@ function auto_mask(ip_addr){
     else {
         return fill_mask(28);
     }
+}
+
+function ipv4_is_private(ip_addr){
+    /* Returns true or false for a private ip_addr --must be as an int. */
+
+    if (((ip_addr >= 167772160) && (ip_addr <= 184549375)) ||
+        ((ip_addr >= -1408237568) && (ip_addr <= -1408172033)) ||
+        ((ip_addr >= -1062731776) && (ip_addr <= -1062666241))){
+        return true;
+    }
+    else { return false; }
 }
 
 function get_wildcard(ip_mask){
@@ -133,10 +150,10 @@ function parser(text){
         entry = text.split('/'),
         ip_addr = 2130706433,  // 127.0.0.1
         ip_mask = -16777216,  // 255.0.0.0
-        stat = 0;
+        stat = 0;  // 0: parsing OK; 1: error occurred
 
     if (new RegExp(re_ip_addr).exec(entry[0])){
-        ip_addr = ipv4_str2int(entry[0]);
+        ip_addr = ipv4_dot2int(entry[0]);
     }
     else { stat = 1; }
 
@@ -145,9 +162,12 @@ function parser(text){
             ip_mask = fill_mask(entry[1]);
         }
         else if (new RegExp(re_ip_addr).exec(entry[1])){
-            ip_mask = ipv4_str2int(entry[1]);
+            ip_mask = ipv4_dot2int(entry[1]);
         }
-        else { stat = 1; }
+        else {
+            stat = 1;
+            ip_mask = auto_mask(ip_addr);
+        }
     }
     else {
         ip_mask = auto_mask(ip_addr);
@@ -160,6 +180,7 @@ function parser(text){
             get_first_host(ip_addr, ip_mask),
             get_last_host(ip_addr, ip_mask),
             get_number_hosts(ip_mask),
+            ipv4_is_private(ip_addr),
             stat];
 }
 
@@ -191,7 +212,7 @@ function on_input_enter(e){
     if (e.keyCode == 13){
         p = parser($('#input-ipmask').val());
 
-        if (p[8]){
+        if (p[9]){
             $('#input-ipmask').parent().addClass('has-error');
         }
         else{
@@ -199,7 +220,7 @@ function on_input_enter(e){
         }
 
         for (var i = 0; i < 7; i++){
-            $('#octet-' + i).text(ipv4_int2str(p[i]));
+            $('#octet-' + i).text(ipv4_int2dot(p[i]));
         }
         $('#octet-7').text(p[7]);
 
@@ -207,6 +228,17 @@ function on_input_enter(e){
             $('#octet-' + i + '-bin').text(dec2bin(p[i]));
         }
         $('#octet-7-bin').text(p[7].toString(2));
+
+        if (p[8]){
+            for (var i = 0; i < 8; i++){
+                $('#span-' + i).addClass('label-danger');
+            }
+        }
+        else{
+            for (var i = 0; i < 8; i++){
+                $('#span-' + i).removeClass('label-danger');
+            }
+        }
     }
 }
 
