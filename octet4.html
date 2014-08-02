@@ -29,13 +29,15 @@
 
             <div class="collapse navbar-collapse" id="navbar-content">
                 <h4 class="navbar-text navbar-left">Octet</h4>
-                <a class="navbar-brand navbar-right" href="#">Jiló</a>
+                <a class="navbar-brand navbar-right" href="http://jilo.cc">Jiló</a>
             </div>
         </div>
     </nav>
 
     <section class="container">
-        <input type="text" class="form-control input-group" id="input-ipmask" placeholder="Type the IP address and mask (optional) and hit <enter>">
+        <div>
+            <input type="text" class="form-control input-group" id="input-ipmask" placeholder="Type the IP address and mask (optional) and hit <enter>">
+        </div>
 
         <div class="table-responsive">
         <table class="table table-striped">
@@ -43,42 +45,42 @@
             <tr>
                 <th class="text-nowrap"><span class="label label-primary">IP address</span></th>
                 <td><span id="octet-0">127.0.0.1</span></td>
-                <td><code id="octet-0-bin">00000000 00000000 00000000 00000000</code></td>
+                <td><code id="octet-0-bin">01111111 00000000 00000000 00000001</code></td>
             </tr>
             <tr>
                 <th class="text-nowrap"><span class="label label-primary">Subnet mask</span></th>
-                <td><span id="octet-1">255.255.255.0</span></td>
-                <td><code id="octet-1-bin">11111111 11111111 11111111 00000000</code></td>
+                <td><span id="octet-1">255.0.0.0</span></td>
+                <td><code id="octet-1-bin">11111111 00000000 00000000 00000000</code></td>
             </tr>
             <tr>
                 <th class="text-nowrap"><span class="label label-primary">Wildcard mask</span></th>
-                <td><span id="octet-2">255.255.255.0</span></td>
+                <td><span id="octet-2">0.255.255.255</span></td>
                 <td><code id="octet-2-bin">00000000 11111111 11111111 11111111</code></td>
             </tr>
             <tr>
                 <th class="text-nowrap"><span class="label label-primary">Network address</span></th>
-                <td><span id="octet-3">255.255.255.0</span></td>
-                <td><code id="octet-3-bin">00000000 11111111 11111111 11111111</code></td>
+                <td><span id="octet-3">127.0.0.0</span></td>
+                <td><code id="octet-3-bin">01111111 00000000 00000000 00000000</code></td>
             </tr>
             <tr>
                 <th class="text-nowrap"><span class="label label-primary">Broadcast address</span></th>
-                <td><span id="octet-4">255.255.255.0</span></td>
-                <td><code id="octet-4-bin">00000000 11111111 11111111 11111111</code></td>
+                <td><span id="octet-4">127.255.255.255</span></td>
+                <td><code id="octet-4-bin">01111111 11111111 11111111 11111111</code></td>
             </tr>
             <tr>
                 <th class="text-nowrap"><span class="label label-primary">First host address</span></th>
-                <td><span id="octet-5">255.255.255.0</span></td>
-                <td><code id="octet-5-bin">00000000 11111111 11111111 11111111</code></td>
+                <td><span id="octet-5">127.0.0.1</span></td>
+                <td><code id="octet-5-bin">01111111 00000000 00000000 00000001</code></td>
             </tr>
             <tr>
                 <th class="text-nowrap"><span class="label label-primary">Last host address</span></th>
-                <td><span id="octet-6">255.255.255.0</span></td>
-                <td><code id="octet-6-bin">00000000 11111111 11111111 11111111</code></td>
+                <td><span id="octet-6">127.255.255.254</span></td>
+                <td><code id="octet-6-bin">01111111 11111111 11111111 11111110</code></td>
             </tr>
             <tr>
                 <th class="text-nowrap"><span class="label label-primary">Number of hosts</span></th>
-                <td><span id="octet-7">255.255.255.0</span></td>
-                <td><code id="octet-7-bin">00000000 11111111 11111111 11111111</code></td>
+                <td><span id="octet-7">16777214</span></td>
+                <td><code id="octet-7-bin">111111111111111111111110</code></td>
             </tr>
         </tbody>
         </table>
@@ -93,7 +95,7 @@
     <footer class="navbar navbar-default navbar-static-bottom">
         <div class="container-fluid">
             <p class="navbar-text">Proudly built with <a href="http://jquery.com" target="_blank">jQuery 2.1.1</a> and <a href="http://getbootstrap.com" target="_blank">Bootstrap 3.2.0</a>.  Fork me on <a href="https://github.com/forkd/octet" target="_blank">GitHub</a>.</p>
-            <a class="navbar-right navbar-text badge" href="http://jilo.cc">Jiló</a>
+            <a class="navbar-right navbar-text badge" href="http://b.jilo.cc">Jiló</a>
         </div>
     </footer>
 

@@ -31,11 +31,11 @@ function ipv4_str2int(ip_str){
         aux = ip_str.split('.'),
         ip_int = 0;
 
-    for (var i=0; i < 4; i++){
+    for (var i = 0; i < 4; i++){
         ip_arr.push(parseInt(aux[i]));
     }
 
-    for (var i=0; i < 4; i++){
+    for (var i = 0; i < 4; i++){
         ip_int = ip_int << 8;
         ip_int += ip_arr[i];
     }
@@ -49,14 +49,14 @@ function ipv4_int2str(ip_int){
     var ip_arr = [],
         ip_str = '';
 
-    for (var i=0; i < 4; i++){
+    for (var i = 0; i < 4; i++){
         ip_arr.push(ip_int & 255);
         ip_int = ip_int >> 8;
     }
 
     ip_arr.reverse();
 
-    for (var i=0; i < 4; i++){
+    for (var i = 0; i < 4; i++){
         ip_str += ip_arr[i] + '.';
     }
 
@@ -68,7 +68,7 @@ function fill_mask(n){
 
     var ip_mask = 0;
 
-    for (var i=0; i < n; i++){
+    for (var i = 0; i < n; i++){
         ip_mask++;
         if (i != n - 1) { ip_mask = ip_mask << 1; }
     }
@@ -106,7 +106,7 @@ function get_network(ip_addr, ip_mask){
 }
 
 function get_broadcast(ip_addr, ip_mask){
-    return get_network(ip_addr, ip_mask) | ~ip_mask;
+    return get_network(ip_addr, ip_mask) | get_wildcard(ip_mask);
 }
 
 function get_first_host(ip_addr, ip_mask){
@@ -114,7 +114,7 @@ function get_first_host(ip_addr, ip_mask){
 }
 
 function get_last_host(ip_addr, ip_mask){
-    return get_broadcast(ip_mask, ip_mask) - 1;
+    return get_broadcast(ip_addr, ip_mask) - 1;
 }
 
 function get_number_hosts(ip_mask){
@@ -132,11 +132,13 @@ function parser(text){
         re_bits_subnet = '(^3[012]$|^[12][0-9]$|^[0-9]$)';
         entry = text.split('/'),
         ip_addr = 2130706433,  // 127.0.0.1
-        ip_mask = -16777216;  // 255.0.0.0
+        ip_mask = -16777216,  // 255.0.0.0
+        stat = 0;
 
     if (new RegExp(re_ip_addr).exec(entry[0])){
         ip_addr = ipv4_str2int(entry[0]);
     }
+    else { stat = 1; }
 
     if (entry.length > 1){
         if (new RegExp(re_bits_subnet).exec(entry[1])){
@@ -145,6 +147,7 @@ function parser(text){
         else if (new RegExp(re_ip_addr).exec(entry[1])){
             ip_mask = ipv4_str2int(entry[1]);
         }
+        else { stat = 1; }
     }
     else {
         ip_mask = auto_mask(ip_addr);
@@ -156,7 +159,8 @@ function parser(text){
             get_broadcast(ip_addr, ip_mask),
             get_first_host(ip_addr, ip_mask),
             get_last_host(ip_addr, ip_mask),
-            get_number_hosts(ip_mask)];
+            get_number_hosts(ip_mask),
+            stat];
 }
 
 function dec2bin(n){
@@ -165,7 +169,7 @@ function dec2bin(n){
     var aux = 0
         ret = '';
 
-    for (var i=0; i < 4; i++){
+    for (var i = 0; i < 4; i++){
         aux = (n & 255).toString(2);
         
         while (aux.length < 8){ aux = '0' + aux; }
@@ -187,12 +191,19 @@ function on_input_enter(e){
     if (e.keyCode == 13){
         p = parser($('#input-ipmask').val());
 
-        for (var i=0; i<7; i++){
+        if (p[8]){
+            $('#input-ipmask').parent().addClass('has-error');
+        }
+        else{
+            $('#input-ipmask').parent().removeClass('has-error');
+        }
+
+        for (var i = 0; i < 7; i++){
             $('#octet-' + i).text(ipv4_int2str(p[i]));
         }
         $('#octet-7').text(p[7]);
 
-        for (var i=0; i<7; i++){
+        for (var i = 0; i < 7; i++){
             $('#octet-' + i + '-bin').text(dec2bin(p[i]));
         }
         $('#octet-7-bin').text(p[7].toString(2));
