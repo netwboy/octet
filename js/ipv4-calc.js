@@ -206,42 +206,55 @@ function dec2bin(n){
 /**
  * CALLBACK FUNCTIONS
  */
+function update_interface(p){
+    if (p[9]){
+        $('#input-ipmask').parent().addClass('has-error');
+    }
+    else{
+        $('#input-ipmask').parent().removeClass('has-error');
+    }
+
+    for (var i = 0; i < 7; i++){
+        $('#octet-' + i).text(ipv4_int2dot(p[i]));
+    }
+    $('#octet-7').text(p[7]);
+
+    for (var i = 0; i < 7; i++){
+        $('#octet-' + i + '-bin').text(dec2bin(p[i]));
+    }
+    $('#octet-7-bin').text(p[7].toString(2));
+
+    if (p[8]){
+        for (var i = 0; i < 8; i++){
+            $('#span-' + i).addClass('label-danger');
+        }
+    }
+    else{
+        for (var i = 0; i < 8; i++){
+            $('#span-' + i).removeClass('label-danger');
+        }
+    }
+}
+
 function on_input_enter(e){
     var p = [];
 
     if (e.keyCode == 13){
         p = parser($('#input-ipmask').val());
-
-        if (p[9]){
-            $('#input-ipmask').parent().addClass('has-error');
-        }
-        else{
-            $('#input-ipmask').parent().removeClass('has-error');
-        }
-
-        for (var i = 0; i < 7; i++){
-            $('#octet-' + i).text(ipv4_int2dot(p[i]));
-        }
-        $('#octet-7').text(p[7]);
-
-        for (var i = 0; i < 7; i++){
-            $('#octet-' + i + '-bin').text(dec2bin(p[i]));
-        }
-        $('#octet-7-bin').text(p[7].toString(2));
-
-        if (p[8]){
-            for (var i = 0; i < 8; i++){
-                $('#span-' + i).addClass('label-danger');
-            }
-        }
-        else{
-            for (var i = 0; i < 8; i++){
-                $('#span-' + i).removeClass('label-danger');
-            }
-        }
+        update_interface(p);
     }
+}
+
+function on_uri_parameter(param){
+    var p = parser(param);
+    $('#input-ipmask').val(param);
+    update_interface(p);
 }
 
 $(document).ready(function(){
     $('#input-ipmask').keypress(on_input_enter);
+    
+    if (window.location.search) {
+        on_uri_parameter(window.location.search.replace(/^\?addr=/, ''));
+    }
 });
